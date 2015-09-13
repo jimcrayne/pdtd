@@ -25,4 +25,4 @@ header2 n = text (printf "module %s where\n\nimport Data.List.NonEmpty\n\ntype L
 
 pdtd dtdFile outFile = bracket (openFile outFile WriteMode) hClose $ \h -> do
         cts <- readFile dtdFile
-        mapM_ (hPrint h) $ maybe (error "E: parse") (([header2 (takeBaseName outFile)] ++) . intersperse (text "\n") . map ppTypeDef . dtd2TypeDef . (\(DTD _ _ x) -> x)) (dtdParse "x86reference.dtd" cts) 
+        mapM_ (hPrint h) $ maybe (error "E: parse") (([header2 (takeBaseName outFile)] ++) . intersperse (text "\n") . map ppTypeDef . dtd2TypeDef . (\(DTD _ _ x) -> x)) (dtdParse dtdFile cts) 
